@@ -2,29 +2,28 @@
 
 ## 🎯 Learning Objectives
 
-By the end of this lesson, I can:
-
-- Define a variable.
-- Use Python's basic data types.
+- Understand variables and basic data types.
 - Print output using `print()`.
-- Format strings using f-strings.
+- Format strings with f-strings.
 - Reassign variables.
 - Follow Python naming conventions.
+- Use `type()` to check data types.
 
 ---
 
 # 📚 Topics Covered
 
 - Variables
-- Data Types
-  - `str`
-  - `int`
-  - `float`
-  - `bool`
+- `str`
+- `int`
+- `float`
+- `bool`
 - `print()`
 - f-string
 - Variable Reassignment
-- Variable Naming
+- Variable Naming (`snake_case`)
+- Constants (Convention)
+- `type()`
 
 ---
 
@@ -32,32 +31,39 @@ By the end of this lesson, I can:
 
 ### Variable
 
-A **named container** that stores a value, which can be accessed and updated during program execution.
+A **named container** that stores a value. Its value can be updated during program execution.
 
-### `str` (String)
+### `str`
 
-Stores **text** enclosed in single (`'`) or double (`"`) quotes.
+Stores **text** inside quotes.
 
-### `int` (Integer)
+```python
+name = "Noor"
+```
+
+### `int`
 
 Stores **whole numbers**.
 
-**Examples:** `25`, `0`, `-10`
+```python
+age = 25
+```
 
 ### `float`
 
-Stores **decimal (floating-point) numbers**.
+Stores **decimal numbers**.
 
-**Examples:** `3.14`, `5.8`
+```python
+height = 5.8
+```
 
-### `bool` (Boolean)
+### `bool`
 
-Stores only two values:
+Stores only `True` or `False`.
 
-- `True`
-- `False`
-
-Used for decision-making.
+```python
+is_student = True
+```
 
 ### `print()`
 
@@ -65,12 +71,10 @@ Displays output on the terminal.
 
 ### f-string
 
-The recommended and most readable way to combine text and variables.
+The recommended way to combine text and variables.
 
 ```python
-name = "Noor"
-
-print(f"Hello, {name}")
+print(f"Hello {name}")
 ```
 
 ### Variable Reassignment
@@ -79,29 +83,37 @@ Updates the value of an existing variable.
 
 ```python
 name = "Noor"
-
 name = "Ali"
 ```
 
 ### Variable Naming
 
-Use **snake_case** and meaningful names.
+- Use **snake_case**
+- Use meaningful names
+- Avoid spaces and special characters
 
-✅ Good
+✅ `student_name`
+
+❌ `student-name`
+
+❌ `my Name`
+
+### Constants (Convention)
+
+Python has **no built-in constants**.
+
+Use **UPPER_CASE** by convention.
 
 ```python
-user_name
-student_age
-is_verified
+PI = 3.14159
 ```
 
-❌ Bad
+### `type()`
+
+Returns the data type of a value.
 
 ```python
-a
-x1
-my Name
-123name
+print(type(name))
 ```
 
 ---
@@ -110,8 +122,10 @@ my Name
 
 - Forgetting quotes around strings.
 - Using spaces in variable names.
+- Using `-` instead of `_`.
 - Mixing `str` and `int` using `+`.
 - Using meaningless variable names.
+- Changing constant values.
 
 ---
 
@@ -119,52 +133,107 @@ my Name
 
 ### What is a Variable?
 
-A named container used to store data.
+A variable is a **named container** that stores a value. It allows data to be stored, accessed, and updated during program execution.
 
-### Why do we use Variables?
+---
 
-To store, reuse, and update data.
+### What is Variable Reassignment?
 
-### Difference between `int` and `float`?
+Variable reassignment is the process of **updating the value of an existing variable**.
 
-- `int` → Whole numbers
-- `float` → Decimal numbers
+```python
+name = "Noor"
+name = "Ali"
+```
+
+---
+
+### Why use Meaningful Variable Names?
+
+Meaningful variable names improve:
+
+- Readability
+- Maintainability
+- Collaboration
+
+---
+
+### What is `snake_case`?
+
+`snake_case` is Python's standard naming convention where **words are separated using underscores (`_`)**.
+
+Example:
+
+```python
+student_name
+course_fee
+```
+
+---
+
+### Does Python have Constants?
+
+No. Python has **no built-in constant type**. Developers use **UPPER_CASE** by convention to indicate values that should not change.
+
+---
+
+### What does `type()` do?
+
+The `type()` function **returns the data type** of a value or variable.
+
+---
+
+### Difference between `int` and `float`
+
+| `int`         | `float`         |
+| ------------- | --------------- |
+| Whole numbers | Decimal numbers |
+
+---
 
 ### What is Boolean?
 
-A data type that stores only `True` or `False`.
+A Boolean is a data type that stores only **two values:** `True` or `False`. It is mainly used in decision-making and conditional statements.
+
+---
 
 ### Why use f-strings?
 
-Because they are more readable and easier to maintain than string concatenation.
+f-strings are the **recommended** way to format strings because they are:
+
+- More readable
+- Easier to maintain
+- Faster than traditional string formatting
 
 ---
 
 # 💡 Senior Engineer Notes
 
-- A variable stores a **reference** to a value.
-- Use meaningful variable names.
-- Follow Python's `snake_case` naming convention.
+- Variables store **references** to values.
+- Write code for humans, not just computers.
+- Prefer meaningful variable names.
+- Follow Python's `snake_case` convention (PEP 8).
+- Use `UPPER_CASE` for constants.
 - Prefer f-strings over string concatenation.
-- Write code that is easy for humans to read.
 
 ---
 
 # ⚡ 30-Second Revision
 
-- Variable = Named container for data.
-- `str` = Text.
-- `int` = Whole numbers.
-- `float` = Decimal numbers.
-- `bool` = `True` or `False`.
-- `print()` displays output.
-- f-strings are recommended.
+- Variable → Named container for data.
 - Variables can be reassigned.
-- Use `snake_case`.
+- `str` → Text
+- `int` → Whole numbers
+- `float` → Decimal numbers
+- `bool` → `True` / `False`
+- `print()` → Displays output
+- `type()` → Returns data type
+- `snake_case` → Python naming standard
+- `UPPER_CASE` → Constant convention
+- f-strings → Best way to format strings
 
 ---
 
 # 🚀 Next Lesson
 
-- Variables in Depth
-- Operators
+- Arithmetic Operators
