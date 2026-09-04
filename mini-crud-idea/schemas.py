@@ -1,0 +1,16 @@
+from pydantic import BaseModel
+
+
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    password: str
+    profile_image: str | None
+
+    class Config:
+        from_attributes = True
