@@ -12,6 +12,7 @@ class UserResponse(BaseModel):
     id: int
     username: str
     bio: str | None = None
+    role: str | None = None
     profile_image: str | None
 
     class Config:

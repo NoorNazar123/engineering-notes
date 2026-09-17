@@ -1,10 +1,16 @@
-from app.core.cloudinary import upload_image
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.core.security import hash_password
+from app.core.cloudinary import upload_image
+from app.core.security import (
+    create_access_token,
+    hash_password,
+    verify_password,
+)
 from app.db.models import User
 from app.repositories.user_repository import (
     create_user as create_user_record,
+    get_user_by_username,
     update_user as update_user_record,
 )
 from app.schemas.user import UserCreate
@@ -47,7 +53,6 @@ def update_user(
     # Upload new image
     image_url = upload_image(profile_image.file)
 
-
     # Update user fields
     user.username = username
     user.bio = bio
@@ -56,3 +61,31 @@ def update_user(
 
     # Save through repository
     return update_user_record(db, user)
+
+
+def login_user(
+    db: Session,
+    username: str,
+    password: str,
+) -> str:
+    # Find user
+    user = get_user_by_username(db, username)
+
+    # Check username
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid username or password",
+        )
+
+    # Check password
+    if not verify_password(password, user.password):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid username or password",
+        )
+
+    # Create JWT
+    return create_access_token(
+        {"sub": str(user.id)}
+    )

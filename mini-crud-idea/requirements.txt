@@ -1,4 +1,3 @@
-```txt
 fastapi
 uvicorn[standard]
 sqlalchemy
@@ -7,4 +6,5 @@ python-dotenv
 python-multipart
 bcrypt
 cloudinary
-```
+PyJWT
+google-genai

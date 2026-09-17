@@ -1,18 +1,15 @@
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
+from app.api.dependencies import get_authenticated_user
 from app.db.database import get_db
-from app.db.models import User
 from app.repositories.user_repository import (
     delete_user as delete_user_record,
     get_all_users,
     get_user_by_id,
 )
-from app.schemas.user import UserCreate, UserResponse
-from app.services.user_service import (
-    create_user as create_user_service,
-    update_user as update_user_service,
-)
+from app.schemas.user import UserResponse
+from app.services.user_service import update_user as update_user_service
 
 router = APIRouter(
     prefix="/users",
@@ -21,38 +18,15 @@ router = APIRouter(
 
 
 # =========================
-# CREATE
-# =========================
-
-
-@router.post("", response_model=UserResponse)
-def create_user(
-    username: str = Form(),
-    password: str = Form(),
-    bio: str = Form(),
-    profile_image: UploadFile = File(),
-    db: Session = Depends(get_db),
-):
-    user_data = UserCreate(
-        username=username,
-        password=password,
-        bio=bio,
-    )
-
-    return create_user_service(
-        db=db,
-        user_data=user_data,
-        profile_image=profile_image,
-    )
-
-
-# =========================
 # READ ALL
 # =========================
 
 
 @router.get("", response_model=list[UserResponse])
-def get_users(db: Session = Depends(get_db)):
+def get_users(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_authenticated_user),
+):
     return get_all_users(db)
 
 
@@ -65,6 +39,7 @@ def get_users(db: Session = Depends(get_db)):
 def get_user(
     user_id: int,
     db: Session = Depends(get_db),
+    current_user=Depends(get_authenticated_user),
 ):
     user = get_user_by_id(db, user_id)
 
@@ -72,6 +47,12 @@ def get_user(
         raise HTTPException(
             status_code=404,
             detail="User not found",
+        )
+
+    if user.id != current_user.id and current_user.role != "admin":
+        raise HTTPException(
+            status_code=403,
+            detail="You can only view your own account",
         )
 
     return user
@@ -90,6 +71,7 @@ def update_user(
     password: str = Form(),
     profile_image: UploadFile = File(),
     db: Session = Depends(get_db),
+    current_user=Depends(get_authenticated_user),
 ):
     user = get_user_by_id(db, user_id)
 
@@ -97,6 +79,12 @@ def update_user(
         raise HTTPException(
             status_code=404,
             detail="User not found",
+        )
+
+    if user.id != current_user.id and current_user.role != "admin":
+        raise HTTPException(
+            status_code=403,
+            detail="You can only delete your own account",
         )
 
     return update_user_service(
@@ -118,6 +106,7 @@ def update_user(
 def delete_user(
     user_id: int,
     db: Session = Depends(get_db),
+    current_user=Depends(get_authenticated_user),
 ):
     user = get_user_by_id(db, user_id)
 
@@ -125,6 +114,12 @@ def delete_user(
         raise HTTPException(
             status_code=404,
             detail="User not found",
+        )
+
+    if user.id != current_user.id and current_user.role != "admin":
+        raise HTTPException(
+            status_code=403,
+            detail="You can only delete your own account",
         )
 
     delete_user_record(db, user)
