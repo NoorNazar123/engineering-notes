@@ -4,6 +4,7 @@ import React from "react";
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { logout } from "@/app/store/slices/authSlice";
+import { API_URL } from "../lib/api";
 
 type AIBioImproverProps = {
   currentBio: string;
@@ -37,7 +38,7 @@ export default function AIBioImprover({
     setGeneratedBio("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/ai/generate-bio", {
+      const response = await fetch(`${API_URL}/ai/generate-bio`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,

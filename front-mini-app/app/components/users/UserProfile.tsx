@@ -4,6 +4,7 @@ import React from "react";
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { setLoading, setUsers } from "@/app/store/slices/usersSlice";
+import { API_URL } from "@/app/lib/api";
 
 const UserProfile = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ const UserProfile = () => {
       dispatch(setLoading(true));
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/users", {
+        const response = await fetch(`${API_URL}/users`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

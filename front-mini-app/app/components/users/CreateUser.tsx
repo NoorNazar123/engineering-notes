@@ -5,6 +5,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { addUser } from "@/app/store/slices/usersSlice";
 import type { User } from "@/app/types/user";
+import { API_URL } from "@/app/lib/api";
 
 const CreateUser = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +40,7 @@ const CreateUser = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/users", {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,

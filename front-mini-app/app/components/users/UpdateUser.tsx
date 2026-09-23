@@ -5,6 +5,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { updateUser as updateUserInStore } from "@/app/store/slices/usersSlice";
 import type { User } from "@/app/types/user";
+import { API_URL } from "@/app/lib/api";
 
 type UpdateUserProps = {
   userId: number;
@@ -48,7 +49,7 @@ const UpdateUser = ({ userId, onUpdated }: UpdateUserProps) => {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/users/${userId}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${accessToken}`,

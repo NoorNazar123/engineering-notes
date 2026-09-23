@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { logout, setUser } from "@/app/store/slices/authSlice";
 
 import type { User } from "@/app/types/user";
+import { API_URL } from "../lib/api";
 
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
@@ -61,7 +62,7 @@ export default function ProfilePage() {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/users/${user.id}`, {
+      const response = await fetch(`${API_URL}/users/${user.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -115,7 +116,7 @@ export default function ProfilePage() {
     setError("");
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/users/${user.id}`, {
+      const response = await fetch(`${API_URL}/users/${user.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,

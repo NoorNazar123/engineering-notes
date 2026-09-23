@@ -4,6 +4,7 @@ import React from "react";
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { removeUser } from "@/app/store/slices/usersSlice";
+import { API_URL } from "@/app/lib/api";
 
 type DeleteUserProps = {
   userId: number;
@@ -33,7 +34,7 @@ const DeleteUser = ({ userId }: DeleteUserProps) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/users/${userId}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,

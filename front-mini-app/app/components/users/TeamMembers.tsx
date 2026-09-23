@@ -3,10 +3,11 @@
 import React from "react";
 
 import CreateUser from "./CreateUser";
-import UpdateUser from "./UpdateUser";
 import DeleteUser from "./DeleteUser";
+import UpdateUser from "./UpdateUser";
 import UserCard from "./UserCard";
 
+import { API_URL } from "@/app/lib/api";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { setLoading, setUsers } from "@/app/store/slices/usersSlice";
 
@@ -39,7 +40,7 @@ export default function TeamMembers({
         setError("");
         dispatch(setLoading(true));
 
-        const response = await fetch("http://127.0.0.1:8000/users", {
+        const response = await fetch(`${API_URL}/users`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
